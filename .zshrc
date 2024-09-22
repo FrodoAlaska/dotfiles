@@ -102,7 +102,3 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-
-# Emsdk stuf
-export EMSDK_QUIET=1
-source "/home/mohamed/Programming/sdks/emsdk/emsdk_env.sh"
