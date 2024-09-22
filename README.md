@@ -1,2 +1,2 @@
 # dotfiles
-Another developer's Linux's dotfiles
+I'm a Linux usr now
