@@ -1,9 +1,10 @@
 ### On-startup applications
-exec fcitx -d 
+#exec fcitx -d 
+exec waybar --config /home/mohamed/.config/waybar/config --style /home/mohamed/.config/waybar/style.css
 
 ### Variables
-# 'Alt' as the super key
-set $mod Mod1
+# 'Win' as the super key
+set $mod Mod4
 
 # Vim-keys to move, of course
 set $left h
@@ -12,33 +13,27 @@ set $up k
 set $right l
 
 # Default terminal
-set $term alacritty
+set $term foot
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path -b -i | wmenu -i | xargs swaymsg exec -- 
+set $menu dmenu_path -b -i | wofi --show=run | xargs swaymsg exec -- 
 
 ### Output configuration
 #
 output * bg /home/mohamed/Pictures/dark_souls_wallpaper.jpg fill
-#
-# Example configuration:
-#
-#   output HDMI-A-1 resolution 1920x1080 position 1920,0
-#
-# You can get the names of your outputs by running: swaymsg -t get_outputs
 
 ### Input configuration
 #
 # Example configuration:
 #
-#   input "2:14:SynPS/2_Synaptics_TouchPad" {
-#       dwt enabled
-#       tap enabled
-#       natural_scroll enabled
-#       middle_emulation enabled
-#   }
+   input "type:touchpad" {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+   }
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
@@ -142,6 +137,10 @@ output * bg /home/mohamed/Pictures/dark_souls_wallpaper.jpg fill
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
+	
+    # Take a screenshot of the screen
+    bindsym $mod+Shift+g flameshot gui
+
 #
 # Scratchpad:
 #
@@ -187,7 +186,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %X'; do sleep 1; done
+    status_command while date +'%d-%m-%Y %X'; do sleep 1; done
 
     colors {
         statusline #ffffff
