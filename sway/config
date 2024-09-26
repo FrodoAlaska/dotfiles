@@ -1,6 +1,5 @@
 ### On-startup applications
 exec fcitx5 -d 
-exec waybar -c /home/mohamed/.config/waybar/config -s /home/mohamed/.config/waybar/style.css
 exec /usr/lib/xdg-desktop-portal-wlr -r
 
 ### Variables
@@ -25,10 +24,20 @@ set $menu dmenu_path -b -i | wofi --show=run | xargs swaymsg exec --
 #
 output * bg /home/mohamed/Pictures/dark_souls_wallpaper.jpg fill
 
+# Totally suspend the screen when the laptop lid is closed
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# Suspend the screen after a few seconds of inactivity 
+exec swayidle -w \
+    timeout 101 'swaylock -f' \
+    timeout 314 'swaymsg "output * dpms off"' \
+        resume  'swaymsg "output * dpms on"'  \
+    timeout 626 'systemctl suspend ' \
+    before-sleep 'swaylock -f -F'
+
 ### Input configuration
-#
-# Example configuration:
-#
    input "type:touchpad" {
        dwt enabled
        tap enabled
@@ -58,6 +67,10 @@ output * bg /home/mohamed/Pictures/dark_souls_wallpaper.jpg fill
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+
+    # Suspend the screen and lock it 
+    bindsym $mod+Control+Tab exec "swaylock -f -F && systemctl suspend"
+
 #
 # Moving around:
 #
