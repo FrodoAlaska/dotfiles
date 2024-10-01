@@ -30,12 +30,12 @@ bindswitch --reload --locked lid:on output $laptop disable
 bindswitch --reload --locked lid:off output $laptop enable
 
 # Suspend the screen after a few seconds of inactivity 
-exec swayidle -w \
-    timeout 101 'swaylock -f' \
-    timeout 314 'swaymsg "output * dpms off"' \
-        resume  'swaymsg "output * dpms on"'  \
-    timeout 626 'systemctl suspend ' \
-    before-sleep 'swaylock -f -F'
+# exec swayidle -w \
+#     timeout 101 'swaylock -f' \
+#     timeout 314 'swaymsg "output * dpms off"' \
+#         resume  'swaymsg "output * dpms on"'  \
+#     timeout 626 'systemctl suspend ' \
+#     before-sleep 'swaylock -f -F'
 
 ### Input configuration
    input "type:touchpad" {
@@ -70,6 +70,11 @@ exec swayidle -w \
 
     # Suspend the screen and lock it 
     bindsym $mod+Control+Tab exec "swaylock -f -F && systemctl suspend"
+
+    # Mute all sound 
+    bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+    bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+    bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 
 #
 # Moving around:
