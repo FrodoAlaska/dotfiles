@@ -154,10 +154,9 @@ bindswitch --reload --locked lid:off output $laptop enable
     # Move focus to the parent container
     bindsym $mod+a focus parent
 	
-    # Take a screenshot of the screen
-    bindsym $mod+Shift+g flameshot gui
+    # Take a screenshot with a defined rectangle 
+    bindsym $mod+Shift+g exec grim -g "$(slurp)"
 
-#
 # Scratchpad:
 #
     # Sway has a "scratchpad", which is a bag of holding for windows.
