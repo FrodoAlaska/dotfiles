@@ -1,6 +1,7 @@
 ### On-startup applications
 exec fcitx5 -d 
 exec /usr/lib/xdg-desktop-portal-wlr -r
+exec swaync
 
 ### Variables
 # 'Win' as the super key
@@ -73,8 +74,24 @@ bindswitch --reload --locked lid:off output $laptop enable
 
     # Mute all sound 
     bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+   
+    # Increase volume
     bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+   
+    # Decrease volume
     bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+	
+    # Take a screenshot with a defined rectangle 
+    bindsym $mod+Shift+g exec grim -g "$(slurp)"
+
+    # Capture video of the current focused window 
+    bindsym $mod+Shift+p exec wf-recorder -g "$(slurp)" -f /home/mohamed/Videos/${CURRENT_HOUR}:${CURRENT_MINUTE}:{CURRENT_SECOND}.mp4
+   
+    # Stop any recording
+    bindsym $mod+Shift+s exec killall -s SIGINT wf-recorder
+    
+    # Setting up the notification daemon 
+    bindsym $mod+Shift+n exec swaync-client -t -sw
 
 #
 # Moving around:
@@ -153,9 +170,6 @@ bindswitch --reload --locked lid:off output $laptop enable
 
     # Move focus to the parent container
     bindsym $mod+a focus parent
-	
-    # Take a screenshot with a defined rectangle 
-    bindsym $mod+Shift+g exec grim -g "$(slurp)"
 
 # Scratchpad:
 #
@@ -208,7 +222,7 @@ bar {
 
     colors {
         statusline #ffffff
-        background #323232
+        background #4f0061
         inactive_workspace #32323200 #32323200 #5c5c5c
     }
 }
